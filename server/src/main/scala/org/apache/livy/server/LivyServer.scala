@@ -103,30 +103,30 @@ class LivyServer extends Logging {
       _thriftServerFactory = Some(ThriftServerFactory.getInstance)
     }
 
-    if (UserGroupInformation.isSecurityEnabled) {
-      // If Hadoop security is enabled, run kinit periodically. runKinit() should be called
-      // before any Hadoop operation, otherwise Kerberos exception will be thrown.
-      executor = Executors.newScheduledThreadPool(1,
-        new ThreadFactory() {
-          override def newThread(r: Runnable): Thread = {
-            val thread = new Thread(r)
-            thread.setName("kinit-thread")
-            thread.setDaemon(true)
-            thread
-          }
-        }
-      )
-      val launch_keytab = livyConf.get(LAUNCH_KERBEROS_KEYTAB)
-      val launch_principal = SecurityUtil.getServerPrincipal(
-        livyConf.get(LAUNCH_KERBEROS_PRINCIPAL), host)
-      require(launch_keytab != null,
-        s"Kerberos requires ${LAUNCH_KERBEROS_KEYTAB.key} to be provided.")
-      require(launch_principal != null,
-        s"Kerberos requires ${LAUNCH_KERBEROS_PRINCIPAL.key} to be provided.")
-      if (!runKinit(launch_keytab, launch_principal)) {
-        error("Failed to run kinit, stopping the server.")
-        sys.exit(1)
-      }
+//     if (UserGroupInformation.isSecurityEnabled) {
+//       // If Hadoop security is enabled, run kinit periodically. runKinit() should be called
+//       // before any Hadoop operation, otherwise Kerberos exception will be thrown.
+//       executor = Executors.newScheduledThreadPool(1,
+//         new ThreadFactory() {
+//           override def newThread(r: Runnable): Thread = {
+//             val thread = new Thread(r)
+//             thread.setName("kinit-thread")
+//             thread.setDaemon(true)
+//             thread
+//           }
+//         }
+//       )
+//       val launch_keytab = livyConf.get(LAUNCH_KERBEROS_KEYTAB)
+//       val launch_principal = SecurityUtil.getServerPrincipal(
+//         livyConf.get(LAUNCH_KERBEROS_PRINCIPAL), host)
+//       require(launch_keytab != null,
+//         s"Kerberos requires ${LAUNCH_KERBEROS_KEYTAB.key} to be provided.")
+//       require(launch_principal != null,
+//         s"Kerberos requires ${LAUNCH_KERBEROS_PRINCIPAL.key} to be provided.")
+//       if (!runKinit(launch_keytab, launch_principal)) {
+//         error("Failed to run kinit, stopping the server.")
+//         sys.exit(1)
+//       }
       // This is and should be the only place where a login() on the UGI is performed.
       // If an other login in the codebase is strictly needed, a needLogin check should be added to
       // avoid anyway that 2 logins are performed.
