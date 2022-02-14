@@ -206,8 +206,8 @@
     <module>core</module>
     <module>core/scala-2.11</module>
     <module>core/scala-2.12</module>
-    <module>coverage</module>
-    <module>examples</module>
+<!--     <module>coverage</module> -->
+<!--     <module>examples</module> -->
     <module>python-api</module>
     <module>repl</module>
     <module>repl/scala-2.11</module>
@@ -219,7 +219,7 @@
     <module>scala-api/scala-2.12</module>
     <module>server</module>
     <module>test-lib</module>
-    <module>integration-test</module>
+<!--     <module>integration-test</module> -->
   </modules>
 
   <dependencies>
