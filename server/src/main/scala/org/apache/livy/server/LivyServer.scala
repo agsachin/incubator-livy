@@ -133,12 +133,12 @@ class LivyServer extends Logging {
       // This is needed because the thriftserver requires the UGI to be created from a keytab in
       // order to work properly and previously Livy was using a UGI generated from the cached TGT
       // (created by the kinit command).
-      if (livyConf.getBoolean(LivyConf.THRIFT_SERVER_ENABLED)) {
-        UserGroupInformation.loginUserFromKeytab(launch_principal, launch_keytab)
-      }
-      ugi = UserGroupInformation.getCurrentUser
-      startKinitThread(launch_keytab, launch_principal)
-    }
+//       if (livyConf.getBoolean(LivyConf.THRIFT_SERVER_ENABLED)) {
+//         UserGroupInformation.loginUserFromKeytab(launch_principal, launch_keytab)
+//       }
+//       ugi = UserGroupInformation.getCurrentUser
+//       startKinitThread(launch_keytab, launch_principal)
+//     }
 
     testRecovery(livyConf)
 
