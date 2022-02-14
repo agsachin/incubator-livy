@@ -124,7 +124,7 @@ start_livy_server() {
 
     livy_rotate_log "$log"
     echo "starting $command, logging to $log"
-    nohup nice -n "$LIVY_NICENESS" $command >> "$log" 2>&1 < /dev/null &
+    nohup nice -n "$LIVY_NICENESS" $command &
     newpid="$!"
     echo "$newpid" > "$pid"
     sleep 2
