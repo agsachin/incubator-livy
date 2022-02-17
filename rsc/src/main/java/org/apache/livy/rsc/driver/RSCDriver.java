@@ -168,6 +168,7 @@ public class RSCDriver extends BaseProtocol {
     // server cannot connect to the auto-detected address, but since the driver can run anywhere
     // on the cluster, it would be tricky to solve that problem in a generic way.
     livyConf.set(RPC_SERVER_ADDRESS, null);
+    livyConf.set(LAUNCHER_PORT, 0);
 
     if (livyConf.getBoolean(TEST_STUCK_START_DRIVER)) {
       // Test flag is turned on so we will just infinite loop here. It should cause
