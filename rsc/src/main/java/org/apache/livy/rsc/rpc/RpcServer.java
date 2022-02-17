@@ -84,22 +84,33 @@ public class RpcServer implements Closeable {
     this.group = new NioEventLoopGroup(
       this.config.getInt(RPC_MAX_THREADS),
       Utils.newDaemonThreadFactory("RPC-Handler-%d"));
-    int [] portData = getPortNumberAndRange();
-    int startingPortNumber = portData[PortRangeSchema.START_PORT.ordinal()];
-    int endPort = portData[PortRangeSchema.END_PORT.ordinal()];
-    boolean isContected = false;
-    for(int tries = startingPortNumber ; tries<=endPort ; tries++){
-      try {
-        this.channel = getChannel(tries);
-        isContected = true;
-        break;
-      } catch(SocketException e){
-        LOG.debug("RPC not able to connect port " + tries + " " + e.getMessage());
-      }
+//    int [] portData = getPortNumberAndRange();
+//    int startingPortNumber = portData[PortRangeSchema.START_PORT.ordinal()];
+//    int endPort = portData[PortRangeSchema.END_PORT.ordinal()];
+//    boolean isContected = false;
+//    for(int tries = startingPortNumber ; tries<=endPort ; tries++){
+//      try {
+//        this.channel = getChannel(tries);
+//        isContected = true;
+//        break;
+//      } catch(SocketException e){
+//        LOG.debug("RPC not able to connect port " + tries + " " + e.getMessage());
+//      }
+//    }
+//    if(!isContected) {
+//      throw new IOException("Unable to connect to provided ports " + this.portRange);
+//    }
+
+
+    int launcherPort = config.getInt(LAUNCHER_PORT);
+    try {
+      this.channel = getChannel(launcherPort);
+    } catch (SocketException e) {
+      LOG.warn("RPC not able to connect port " + launcherPort + " " + e.getMessage());
+      throw new IOException("Unable to connect to provided port " + launcherPort);
     }
-    if(!isContected) {
-      throw new IOException("Unable to connect to provided ports " + this.portRange);
-    }
+
+
     this.port = ((InetSocketAddress) channel.localAddress()).getPort();
     this.pendingClients = new ConcurrentHashMap<>();
     LOG.info("Connected to the port " + this.port);
