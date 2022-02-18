@@ -341,6 +341,11 @@ class ContextLauncher {
     }
 
     private void handle(ChannelHandlerContext ctx, RemoteDriverAddress msg) {
+//      InetSocketAddress insocket = (InetSocketAddress) ctx.channel().remoteAddress();
+//      String ip = insocket.getAddress().getHostAddress();
+//      ContextInfo info = new ContextInfo(ip, msg.port, clientId, secret);
+      LOG.info("Sachin: creating ContextInfo with:" + msg.host +" port:"+msg.port
+      );
       ContextInfo info = new ContextInfo(msg.host, msg.port, clientId, secret);
       if (promise.trySuccess(info)) {
         timeout.cancel(true);
