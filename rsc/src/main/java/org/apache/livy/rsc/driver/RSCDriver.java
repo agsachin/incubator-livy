@@ -204,7 +204,7 @@ public class RSCDriver extends BaseProtocol {
       launcherAddress, launcherPort, clientId, secret, this).get();
     try {
 
-      LOG.info("sachin: RSCDriver sending address and port" + server.getAddress() +":"+ server.getPort());
+      LOG.info("Sachin: RSCDriver sending address and port: " + server.getAddress() +":"+ server.getPort());
       callbackRpc.call(
           new RemoteDriverAddress(server.getAddress(), server.getPort())).get(
         livyConf.getTimeAsMs(RPC_CLIENT_HANDSHAKE_TIMEOUT), TimeUnit.MILLISECONDS);

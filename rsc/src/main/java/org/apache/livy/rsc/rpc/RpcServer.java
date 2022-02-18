@@ -104,7 +104,7 @@ public class RpcServer implements Closeable {
 
     int launcherPort = config.getInt(LAUNCHER_PORT);
     try {
-      LOG.info("Sachin: got port for RpcServer" + launcherPort);
+      LOG.info("Sachin: got port for RpcServer: " + launcherPort);
       this.channel = getChannel(launcherPort);
     } catch (SocketException e) {
       LOG.warn("RPC not able to connect port " + launcherPort + " " + e.getMessage());
@@ -116,10 +116,10 @@ public class RpcServer implements Closeable {
     LOG.info("Connected to the port " + this.port);
 
     String address = config.get(RPC_SERVER_ADDRESS);
-    LOG.info("Sachin: got address for RpcServer" + address);
+    LOG.info("Sachin: got address for RpcServer: " + address);
     if (address == null) {
       address = config.findLocalAddress();
-      LOG.info("Sachin: Selecting local address for RpcServer" + address);
+      LOG.info("Sachin: Selecting local address for RpcServer: " + address);
     }
     this.address = address;
   }

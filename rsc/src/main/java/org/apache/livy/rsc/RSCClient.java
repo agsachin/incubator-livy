@@ -140,6 +140,11 @@ public class RSCClient implements LivyClient {
 
         @Override
         public void onFailure(Throwable error) throws Exception {
+          LOG.info("Sachin: Failure in connecting to client address: " + info.remoteAddress
+              +" port: "+info.remotePort
+              +" clientId: "+info.clientId
+              +"secret: "+info.secret
+          );
           driverRpc.setFailure(error);
           connectionError(error);
         }
