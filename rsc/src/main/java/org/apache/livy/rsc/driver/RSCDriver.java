@@ -203,7 +203,10 @@ public class RSCDriver extends BaseProtocol {
     Rpc callbackRpc = Rpc.createClient(livyConf, server.getEventLoopGroup(),
       launcherAddress, launcherPort, clientId, secret, this).get();
     try {
-      callbackRpc.call(new RemoteDriverAddress(server.getAddress(), server.getPort())).get(
+
+      LOG.info("sachin: RSCDriver sending address and port" + server.getAddress() +":"+ server.getPort());
+      callbackRpc.call(
+          new RemoteDriverAddress(server.getAddress(), server.getPort())).get(
         livyConf.getTimeAsMs(RPC_CLIENT_HANDSHAKE_TIMEOUT), TimeUnit.MILLISECONDS);
     } catch (TimeoutException te) {
       LOG.warn("Timed out sending address to Livy server, shutting down.");
